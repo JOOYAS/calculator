@@ -1,37 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="color-scheme" content="light dark">
     <title>calculator</title>
     <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
     <h1 class="h1">calculator</h1>
     <div class="container">
-     <form action="">
-        <p class="p">CASIO</p>
-      <input   type="text" id="screen">
-      <input class="button" type="button" value="7">
-      <input class="button" type="button" value="8"> 
-      <input class="button" type="button" value="9">
-      <input class="button op" type="button" value="/">
-      <br>
-      <input class="button" type="button" value="4">
-      <input class="button" type="button" value="5"> 
-      <input class="button" type="button" value="6">
-      <input class="button op" type="button" value="*">
-       <br>
-       <input class="button" type="button" value="1">
-      <input class="button" type="button" value="2"> 
-      <input class="button" type="button" value="3">
-      <input class="button op" type="button" value="+">
-      <br>
-      <input class=" button cancel" type="button" value="c">
-      <input class="button" type="button" value="0"> 
-      <input class="button result" type="button" value="=">
-      <input class="button op" type="button" value="-">
-
-    </form>
+        <p class="p">CASEO</p>
+        <div class="display">
+            <input type="text" id="num-screen" placeholder="88888888888" maxlength="11" autofocus>
+            <input type="text" id="operator-screen" readonly maxlength="1" placeholder="&plusmn;">
+        </div>
+        <div id="button-container">
+            <button class="button operation" value="+" id="plus">
+                +
+            </button>
+            <button class="button operation" value="-" id="minus">
+                -
+            </button>
+            <button class="button operation" value="*" id="multiply">
+                X
+            </button>
+            <button class="button operation" value="/" id="divide">
+                /
+            </button>
+            <button class="button num-button" value="1" id="one">
+                1
+            </button>
+            <button class="button num-button" value="4" id="four">
+                4
+            </button>
+            <button class="button num-button" value="7" id="seven">
+                7
+            </button>
+            <button class="button operation" value="%" id="modulo">
+                %
+            </button>
+            <button class="button num-button" value="2" id="two">
+                2
+            </button>
+            <button class="button num-button" value="5" id="five">
+                5
+            </button>
+            <button class="button num-button" value="8" id="eight">
+                8
+            </button>
+            <button class="button num-button" value="0" id="zero">
+                0
+            </button>
+            <button class="button num-button" value="3" id="three">
+                3
+            </button>
+            <button class="button num-button" value="6" id="six">
+                6
+            </button>
+            <button class="button num-button" value="9" id="nine">
+                9
+            </button>
+            <button class="button num-button" value="." id="dot">
+                .
+            </button>
+        </div>
+        <div id="lg-button-container">
+            <button class="button lg-button clear" id="clear">
+                clear
+            </button>
+            <button class="button lg-button result" id="equals">
+                =
+            </button>
+        </div>
     </div>
     <script type="module" src="./index.js"></script>
 </body>
+
 </html>

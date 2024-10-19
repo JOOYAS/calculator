@@ -7,6 +7,11 @@
 body {
     background-color: white;
     color: black;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -16,14 +21,14 @@ body {
     src: url('./fonts/digital-7\ \(mono\).ttf') format('truetype');
 }
 
-.h1 {
-    text-align: center;
+#container {
+    height: 100%;
+
 }
 
-.container {
-    margin: auto;
+.calculator {
     padding: 2%;
-    width: 468px;
+    width: 490px;
     height: fit-content;
     background-color: black;
     border-radius: 20px;
@@ -63,7 +68,7 @@ body {
 }
 
 #operator-screen {
-    width: 1ch;
+    width: 2ch;
     height: 100%;
     border-radius: 0.5rem;
     background: none;
@@ -142,19 +147,21 @@ body {
 @media (prefers-color-scheme: dark) {
     body {
         background-color: black;
-        color: white;
+        color: ghostwhite;
 
-    }
-
-    .p {
-        color: blue;
     }
 
     .container {
-        background-color: antiquewhite;
+        background-color: cadetblue;
     }
 
     .display {
-        background-color: darkslategrey;
+        background-color: dimgray;
+    }
+
+    #num-screen {
+        &::placeholder {
+            opacity: 0.1;
+        }
     }
 }

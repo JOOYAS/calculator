@@ -32,7 +32,10 @@ numScreen.addEventListener("input", (event) => {
 numButtons.forEach((button) => {
     button.addEventListener("click", function () {
         //clears the previous result on new click
-        if (operationIndicator.value === "=") {
+        if (
+            operationIndicator.value === "=" ||
+            operationIndicator.value === "\u2BBF"
+        ) {
             numScreen.value = null;
             operationIndicator.value = null;
         }
@@ -75,34 +78,47 @@ function numOnDisplay(button) {
 //on selecting an operation
 function operation(selectedOperationButton) {
     operationIndicator.value = selectedOperationButton.innerText;
-    firstNum = parseFloat(numScreen.value);
-    currentOperator = selectedOperationButton.value;
+    console.log("screen1 = ", numScreen.value);
+    firstNum = numScreen.value == "" ? 0 : parseFloat(numScreen.value);
+    currentOperator = selectedOperationButton.value
+        ? selectedOperationButton.value
+        : null;
 
-    numScreen.value = firstNum && currentOperator ? "" : firstNum;
+    //clears screen on
+    numScreen.value = firstNum !== null && currentOperator ? null : firstNum;
 }
 
 //calculation and  prints result
 function calculation() {
-    secondNum = parseFloat(numScreen.value);
-    operationIndicator.value = null;
+    secondNum = numScreen.value === null ? 0 : parseFloat(numScreen.value);
+    console.log(
+        `first=${firstNum}, second=${secondNum}, op=${currentOperator} `
+    );
     try {
-        const result = eval(`${firstNum} ${currentOperator} ${secondNum}`);
-        if (result) {
-            if (result == "Infinity") {
-                throw new Error("infinity is not defined");
-                return;
+        if (currentOperator) {
+            let result = eval(`${firstNum} ${currentOperator} ${secondNum}`);
+            console.log("did eval");
+            if (result !== null && result !== undefined) {
+                console.log(result);
+                if (result == "Infinity") {
+                    throw new Error("infinity is not defined");
+                    return;
+                }
+                numScreen.value = result;
+                operationIndicator.value = "=";
             }
-            numScreen.value = result;
-            operationIndicator.value = "=";
         }
     } catch (error) {
-        operationIndicator.value = null;
-        numScreen.value = "error     "; //error message is "error + 5 empty spaces"
+        operationIndicator.value = "\u2BBF";
+        numScreen.value = "error      "; //error message is "error + 6 empty spaces"
         console.error(error);
 
         //just to delete the error message automatically
         autoClear();
     }
+    currentOperator = null;
+    firstNum = null;
+    secondNum = null;
 }
 
 //just to delete the error message automatically

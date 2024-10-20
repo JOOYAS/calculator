@@ -77,35 +77,55 @@ function numOnDisplay(button) {
 
 //on selecting an operation
 function operation(selectedOperationButton) {
+    if (!currentOperator) {
+        firstNum = numScreen.value == "" ? null : parseFloat(numScreen.value);
+    }
+    if (
+        !firstNum &&
+        (selectedOperationButton.value === "-" ||
+            selectedOperationButton.value == "+")
+    ) {
+        numScreen.value = selectedOperationButton.value;
+        return;
+    }
+    if (
+        firstNum &&
+        currentOperator &&
+        (selectedOperationButton.value === "-" ||
+            selectedOperationButton.value == "+")
+    ) {
+        numScreen.value = selectedOperationButton.value;
+        return;
+    }
+    //these lines sets the operator
     operationIndicator.value = selectedOperationButton.innerText;
-    console.log("screen1 = ", numScreen.value);
-    firstNum = numScreen.value == "" ? 0 : parseFloat(numScreen.value);
-    currentOperator = selectedOperationButton.value
-        ? selectedOperationButton.value
-        : null;
-
-    //clears screen on
-    numScreen.value = firstNum !== null && currentOperator ? null : firstNum;
+    currentOperator = selectedOperationButton.value;
+    //clears screen for second num
+    numScreen.value = firstNum != "NaN" && currentOperator ? null : firstNum;
 }
 
 //calculation and  prints result
 function calculation() {
-    secondNum = numScreen.value === null ? 0 : parseFloat(numScreen.value);
+    secondNum = numScreen.value === "" ? 0 : parseFloat(numScreen.value);
     console.log(
         `first=${firstNum}, second=${secondNum}, op=${currentOperator} `
     );
     try {
         if (currentOperator) {
-            let result = eval(`${firstNum} ${currentOperator} ${secondNum}`);
+            let result = eval(`${firstNum} ${currentOperator} ${secondNum}`); //on floating-number or big-Number calculatins errors will occurr, to fix use libraries
             console.log("did eval");
             if (result !== null && result !== undefined) {
                 console.log(result);
-                if (result == "Infinity") {
-                    throw new Error("infinity is not defined");
-                    return;
-                }
+
                 numScreen.value = result;
                 operationIndicator.value = "=";
+                if (result == "Infinity") {
+                    autoClear();
+                    return;
+                }
+                if (isNaN(result)) {
+                    autoClear();
+                }
             }
         }
     } catch (error) {
@@ -125,6 +145,7 @@ function calculation() {
 function autoClear(timeout = 5000) {
     setTimeout(() => {
         operationIndicator.value = null;
+        currentOperator = null;
         const interval = setInterval(() => {
             if (numScreen.value.length > 0) {
                 numScreen.value = numScreen.value.slice(0, -1);

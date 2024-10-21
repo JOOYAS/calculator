@@ -67,7 +67,7 @@ body {
     user-select: none;
 
     &::placeholder {
-        opacity: 0.03;
+        opacity: 0.07;
     }
 }
 

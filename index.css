@@ -33,8 +33,8 @@ body {
     background-color: #181818;
     border-radius: 20px;
 
-    /*  shadow from getcssscan.com */
-    box-shadow: rgba(0, 0, 0, 0.52) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+
+    box-shadow: inset .5em .8em 1em .5em rgb(72, 72, 72), inset 0 .8em .5em rgb(250, 250, 250), inset .5em 0em .8em rgba(255, 255, 255, 1), .5em .8em 1em rgb(76, 76, 76);
 }
 
 .p {
@@ -48,6 +48,8 @@ body {
     border-radius: 0.5rem;
     background-color: rgb(166, 206, 173);
     display: flex;
+
+    box-shadow: 8px 8px 18px -5px rgba(0, 0, 0, 0.82) inset;
 }
 
 #num-screen {
@@ -155,6 +157,8 @@ body {
 
     .calculator {
         background-color: cadetblue;
+
+        box-shadow: none;
     }
 
     .display {

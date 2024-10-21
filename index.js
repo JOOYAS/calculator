@@ -107,26 +107,21 @@ function operation(selectedOperationButton) {
 //calculation and  prints result
 function calculation() {
     secondNum = numScreen.value === "" ? 0 : parseFloat(numScreen.value);
-    console.log(
-        `first=${firstNum}, second=${secondNum}, op=${currentOperator} `
-    );
+    console.log(`${firstNum} ${currentOperator} ${secondNum}`);
     try {
-        if (currentOperator) {
+        if (currentOperator && (firstNum || secondNum)) {
             let result = eval(`${firstNum} ${currentOperator} ${secondNum}`); //on floating-number or big-Number calculatins errors will occurr, to fix use libraries
-            console.log("did eval");
             if (result !== null && result !== undefined) {
-                console.log(result);
+                console.log("result", result);
 
                 numScreen.value = result;
                 operationIndicator.value = "=";
-                if (result == "Infinity") {
-                    autoClear();
-                    return;
-                }
-                if (isNaN(result)) {
+                if (isNaN(result) || !isFinite(result)) {
                     autoClear();
                 }
             }
+        } else {
+            throw new Error("Invalid calculation");
         }
     } catch (error) {
         operationIndicator.value = "\u2BBF";
@@ -144,7 +139,10 @@ function calculation() {
 //just to delete the error message automatically
 function autoClear(timeout = 5000) {
     setTimeout(() => {
-        operationIndicator.value = null;
+        //removing all values
+        firstNum = null;
+        secondNum = null;
+        operationIndicator.value = "";
         currentOperator = null;
         const interval = setInterval(() => {
             if (numScreen.value.length > 0) {

@@ -90,6 +90,7 @@ body {
 
 #button-container {
     columns: 4;
+    margin-top: 1em;
     padding: 24px;
     padding-bottom: 0;
     text-align: center;
@@ -99,7 +100,6 @@ body {
 
     padding: 30px;
     padding-top: 0;
-    padding-bottom: 0;
     display: flex;
     justify-content: space-between;
 

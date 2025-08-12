@@ -59,7 +59,8 @@ clearButton.addEventListener("click", () => {
 
 //onclick of equals button
 equalsButton.addEventListener("click", function () {
-    calculation();
+    if (firstNum)
+        calculation();
 });
 
 //
@@ -77,6 +78,10 @@ function numOnDisplay(button) {
 
 //on selecting an operation
 function operation(selectedOperationButton) {
+    if (firstNum && numScreen.value) {
+        secondNum = numScreen.value == "" ? null : parseFloat(numScreen.value);
+        calculation()
+    }
     if (!currentOperator) {
         firstNum = numScreen.value == "" ? null : parseFloat(numScreen.value);
     }
@@ -106,11 +111,17 @@ function operation(selectedOperationButton) {
 
 //calculation and  prints result
 function calculation() {
-    secondNum = numScreen.value === "" ? 0 : parseFloat(numScreen.value);
+
+    secondNum = (numScreen.value === "" || numScreen.value == null) ? false : parseFloat(numScreen.value);
     console.log(`${firstNum} ${currentOperator} ${secondNum}`);
     try {
+        if (isNaN(secondNum)) {
+            console.log("no secondNum");
+            return
+        }
         if (currentOperator && (firstNum || secondNum)) {
             let result = eval(`${firstNum} ${currentOperator} ${secondNum}`); //on floating-number or big-Number calculatins errors will occurr, to fix use libraries
+            secondNum = "";
             if (result !== null && result !== undefined) {
                 console.log("result", result);
 
